@@ -1,4 +1,4 @@
-from apis.meta import FacebookApi
+from apis.meta import MetaApi
 from googleapiclient.errors import HttpError
 from apis.google import GoogleSheetsApi
 import conf as CFG
@@ -12,7 +12,7 @@ def main():
 
         for offerer in offerers:
             message = f"🏠 *{offerer.name}* entre {offerer.entry_date} y {offerer.end_date}: {offerer.opportunities(lookers)}."
-            FacebookApi().send_message(CFG.main_recipient, message)
+            MetaApi().send_message(CFG.main_recipient, message)
     except HttpError as err:
         print(err)
 
