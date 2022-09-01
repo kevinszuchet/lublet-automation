@@ -19,3 +19,5 @@ google = {
     "spreadsheet_id" : '1e9b2lJCfnntuh2lUTpDlWbKwTyV-fnjvIh0jNA-4kKE',
     "range_name": 'LUBLET!A5:AA'
 }
+
+main_recipient = os.getenv("MAIN_RECIPIENT_PHONE_NUMBER")

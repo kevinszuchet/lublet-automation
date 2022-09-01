@@ -15,7 +15,7 @@ class Lubleter():
         return f"{self.name}{f' ({self.phone_number})' if self.phone_number else ''} busca {range}"
 
 
-class Prospect(Lubleter):
+class Looker(Lubleter):
     def fit(self, proposed_entry_date, proposed_end_date):
         return (self.entry_date <= proposed_entry_date <= self.end_date) or \
                (self.entry_date <= proposed_end_date <= self.end_date) \
@@ -29,9 +29,9 @@ class Offerer(Lubleter):
         self.address = address
         self.description = description
 
-    def opportunities(self, prospects):
+    def opportunities(self, lookers):
         matches = []
-        for prospect in prospects:
-            if prospect.fit(self.entry_date, self.end_date):
-                matches.append(str(prospect))
+        for looker in lookers:
+            if looker.fit(self.entry_date, self.end_date):
+                matches.append(str(looker))
         return ", ".join(matches)

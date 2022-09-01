@@ -3,7 +3,7 @@ import conf as CFG
 
 from datetime import datetime
 from enum import Enum
-from models.lubleters import Offerer, Prospect
+from models.lubleters import Offerer, Looker
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -15,7 +15,7 @@ DATE_FORMAT = "%d/%m/%Y"
 ROW_TYPE = 1
 OFFERER_COLUMN_TO_NUM = dict(name=7, entry_date=4, end_date=5, phone_number=9, address=10, price_range=11,
                              description=12)
-PROSPECT_COLUMN_TO_NUM = dict(name=19, entry_date=16, end_date=25, phone_number=21, price_range=23)
+LOOKER_COLUMN_TO_NUM = dict(name=19, entry_date=16, end_date=25, phone_number=21, price_range=23)
 
 
 class RowType(Enum):
@@ -83,15 +83,15 @@ class GoogleSheetsApi:
 
         return offerers
 
-    def get_prospects(self):
-        prospects = []
+    def get_lookers(self):
+        lookers = []
         today = datetime.today().date()
 
         for row in self.get_values():
             if row[ROW_TYPE] == RowType.LOOKING.value:
-                entry_date, end_date = self.get_dates(row, PROSPECT_COLUMN_TO_NUM)
+                entry_date, end_date = self.get_dates(row, LOOKER_COLUMN_TO_NUM)
 
                 if (today <= entry_date) or (end_date and today <= end_date):
-                    prospects.append(Prospect(**{col: row[num] for col, num in PROSPECT_COLUMN_TO_NUM.items()}))
+                    lookers.append(Looker(**{col: row[num] for col, num in LOOKER_COLUMN_TO_NUM.items()}))
 
-        return prospects
+        return lookers
